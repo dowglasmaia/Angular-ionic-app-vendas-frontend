@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CategoriaService } from '../../services/domain/Categoria.service';
+import { categoriaDTO } from '../../models/categoria.dto';
+import { API_CONFIG } from '../../config/api.config';
 
 /**
  * Generated class for the CategoriasPage page.
@@ -16,6 +18,9 @@ import { CategoriaService } from '../../services/domain/Categoria.service';
 })
 export class CategoriasPage {
 
+  bucketUrl: string = API_CONFIG.bucketBaseUrl; // pega o endereço das imgs do meu bucket do S3 da Amazon
+  items: categoriaDTO[]; 
+
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
@@ -26,7 +31,7 @@ export class CategoriasPage {
   ionViewDidLoad() {
    this.categoriaService.findAll()
    .subscribe(response => {
-     console.log(response);
+     this.items = response; 
    },
    error => {
      console.log(error);
