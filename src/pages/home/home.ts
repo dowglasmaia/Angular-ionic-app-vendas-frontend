@@ -33,11 +33,11 @@ creds : CredenciaisDTO = {
   ionViewDidLeave() {     
       this.menu.swipeEnable(true);  } 
 
-  /* Metodo de Login*/
+  /* Metodo de Login - com Usuario autenticando com token valido*/
   login(){
     this.auth.authenticate(this.creds)
     .subscribe(response => {
-      console.log(response.headers.get('Authorization'));
+     this.auth.successfulLogin(response.headers.get('Authorization'));
       this.navCtrl.setRoot('CategoriasPage');
     },
     error => {})
