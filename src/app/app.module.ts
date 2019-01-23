@@ -11,6 +11,7 @@ import { CategoriaService } from '../services/domain/Categoria.service';
 import { ErrorInterceptorProvider } from '../interceptors/error-interceptor';
 import { AuthService } from '../services/auth.service';
 import { StorangeService } from '../services/storage.service';
+import { ClienteService } from '../services/domain/cliente.service';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,8 @@ import { StorangeService } from '../services/storage.service';
     MyApp
     
   ],
+  
+  /* Declara Todos os Services da Aplicação*/ 
   providers: [
     StatusBar,
     SplashScreen,
@@ -34,7 +37,8 @@ import { StorangeService } from '../services/storage.service';
     CategoriaService,
     ErrorInterceptorProvider,
     AuthService,
-    StorangeService
+    StorangeService,
+    ClienteService
     
   ]
 })
