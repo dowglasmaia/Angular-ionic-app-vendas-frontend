@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx'; // IMPORTANTE: IMPORT ATUALIZADO
+import { StorangeService } from '../services/storage.service';
 
 /**
  * @author Dowglas Maia
@@ -9,6 +10,8 @@ import { Observable } from 'rxjs/Rx'; // IMPORTANTE: IMPORT ATUALIZADO
 
  @Injectable()
  export class ErrorInterceptor implements HttpInterceptor {   
+
+    constructor(public storange: StorangeService) {   }
     
         intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
             //console.log("Passou no Interceptor");
@@ -25,9 +28,21 @@ import { Observable } from 'rxjs/Rx'; // IMPORTANTE: IMPORT ATUALIZADO
     
                 console.log("Erro detectado pelo interceptor:");
                 console.log(errorObj);
+
+                //Trantando erros especificos
+                switch(errorObj.status) {
+                     case 403:
+                     this.handle403();
+                     break;  
+                }
     
                 return Observable.throw(errorObj);
             }) as any;
+        }
+
+        //Trantando error 403
+        handle403() {
+            this.storange.setLocaUser(null); // limpar o localStorange
         }
  }
 

@@ -29,8 +29,14 @@ export class ProfilePage {
         .subscribe(response => {this.cliente = response;
         this.getImageIfExists();
         },
-        error => {});
-
+        error => {
+          if (error.status == 403) {
+              this.navCtrl.setRoot('HomePage'); // direciona para pagina Home(login) caso ocora um erro 403
+          }
+        });
+    }
+    else {
+      this.navCtrl.setRoot('HomePage'); // direciona para pagina Home(login) caso ocora um erro 403
     }
   }
 
