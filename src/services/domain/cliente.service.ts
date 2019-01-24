@@ -17,12 +17,7 @@ export class ClienteService {
     /* import { Observable } from "rxjs/RX";  -- Usar este import para o Observable*/
     /* Buscar por Email */
     findByEmail(email: string): Observable<ClienteDTO> {
-
-        let token = this.storange.getLocalUser().token;
-        let authHeader = new HttpHeaders({'Authorization': 'Bearer ' + token});
-
-        return this.http.get<ClienteDTO>(
-         `${API_CONFIG.baseUrl}/clientes/email?value=${email}`, {'headers': authHeader});
+        return this.http.get<ClienteDTO>(`${API_CONFIG.baseUrl}/clientes/email?value=${email}`);
     }
 
     /* Buscar imagen do cliente no bucket da Amazom S3*/
