@@ -27,18 +27,32 @@ creds : CredenciaisDTO = {
   
     /* Desabilta o Menu ao Entra na Pagina de Login*/
   ionViewWillEnter() {    
-       this.menu.swipeEnable(false);   } 
+       this.menu.swipeEnable(false);  
+      
+      } 
  
     /* Habilta o Menu ao Entra na Pagina de Login*/
   ionViewDidLeave() {     
-      this.menu.swipeEnable(true);  } 
+      this.menu.swipeEnable(true); 
+    
+    } 
+
+    /* Definindo o Ciclo de Vinda do Usuario Logado - Mantendo o mesmo logado, se o toke ainda esiver valido */
+    ionViewDidEnter() {
+      this.auth.refreshToken().subscribe(response => {
+     this.auth.successfulLogin(response.headers.get('Authorization'));
+      this.navCtrl.setRoot('ProfilePage');
+    },
+    error => {})
+    
+    }
 
   /* Metodo de Login - com Usuario autenticando com token valido*/
   login(){
     this.auth.authenticate(this.creds)
     .subscribe(response => {
-     this.auth.successfulLogin(response.headers.get('Authorization'));
-      this.navCtrl.setRoot('ProfilePage');
+    this.auth.successfulLogin(response.headers.get('Authorization'));
+    this.navCtrl.setRoot('ProfilePage');
     },
     error => {})
     
