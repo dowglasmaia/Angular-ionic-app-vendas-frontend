@@ -38,7 +38,7 @@ creds : CredenciaisDTO = {
     this.auth.authenticate(this.creds)
     .subscribe(response => {
      this.auth.successfulLogin(response.headers.get('Authorization'));
-      this.navCtrl.setRoot('CategoriasPage');
+      this.navCtrl.setRoot('ProfilePage');
     },
     error => {})
     
