@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { CidadeService } from '../../services/domain/cidade.service';
+import { EstadoService } from '../../services/domain/estado.service';
+import { EstadoDTO } from '../../models/estado.dto';
+import { CidadeDTO } from '../../models/cidade.dto';
 
 @IonicPage()
 @Component({
@@ -10,13 +14,17 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class SignupPage {
 
   formGrupo: FormGroup;
+  estados: EstadoDTO[];
+  cidades: CidadeDTO[];
 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    public formBuilder: FormBuilder) 
-    {
-      this.formGrupo = this.formBuilder.group({
+    public formBuilder: FormBuilder,
+    public cidadeService: CidadeService,
+    public estadoService: EstadoService,
+            ) {
+        this.formGrupo = this.formBuilder.group({
         /** cola os mesmos atributos que tem no formulario 
          * e as Validações seguindo o padrão que estar no Back-End  */
         nome: ['Kamilly Maia', [Validators.required, Validators.minLength(5), Validators.maxLength(120)]],
@@ -37,6 +45,32 @@ export class SignupPage {
 
       });
     }
+    //listando os estados ao carregar a pagina
+    ionViewDidLoad() {
+      this.estadoService.findAll().subscribe(response=> {
+        this.estados = response;
+        
+        //pegando o primeiro elemento da buscar e atribuindo a lista do  formulario
+        this.formGrupo.controls.estadoId.setValue(this.estados[0].id);
+        //atualizando a lista de cidades do estado selecionado        
+        this.updateCidades();        
+      },
+      error => {});
+    }
+
+  //buscando as cidades correspondente ao Estado selecionado
+  updateCidades() {
+    //pegando o estado que estar selecionado na lista do formulario
+    let estado_id = this.formGrupo.value.estadoId;
+
+    this.cidadeService.findAll(estado_id).subscribe(response=> {
+      this.cidades = response;
+      
+      //limpando o campo de cidade para receber a nova seleção
+      //this.formGrupo.controls.cidadeId.setValue(null);
+    },
+    error => {});
+  }
 
   signupUser(){
     console.log("Enviou o Form");
