@@ -58,4 +58,9 @@ creds : CredenciaisDTO = {
     
   }
 
+  // Faz a Navegação para a Pagina de Cadastro de Cliente
+  signup() {
+    this.navCtrl.push('SignupPage');
+  }
+
 }
