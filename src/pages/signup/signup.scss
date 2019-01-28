@@ -2,5 +2,8 @@ page-signup {
     .danger {
         color: red;
     }
-
+    // ou pode usar assim.
+    form > p {
+        color: color($colors, danger);
+    }
 }

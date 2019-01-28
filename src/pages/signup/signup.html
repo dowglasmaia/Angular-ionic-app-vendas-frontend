@@ -23,7 +23,7 @@
     <p class="danger" *ngIf="formGrupo.controls.email.dirty && formGrupo.controls.email.errors">Valor inválido</p>
 
     <!-- Tipo de Pessoa-->
-   <ion-list radio-group formControlName="tipo">
+   <ion-list radio-group formControlName="tipoPessoa">
      <ion-list-header>
         Tipo de Cliente
      </ion-list-header>
@@ -76,13 +76,13 @@
     <ion-label stacked>Cep</ion-label>
     <ion-input formControlName="cep" type="text"></ion-input>
   </ion-item>
-  <p class="danger" *ngIf="formGrupo.controls.cep.dirty && formGrupo.controls.cep.errors">Valor inválido</p>
+  <p  *ngIf="formGrupo.controls.cep.dirty && formGrupo.controls.cep.errors">Valor inválido</p>
 
   <ion-item>
     <ion-label stacked>Telefone Principal*</ion-label>
     <ion-input  formControlName="telefone1" type="text"></ion-input>
   </ion-item>
-  <p class="danger" *ngIf="formGrupo.controls.telefone1.dirty && formGrupo.controls.telefone1.errors">Valor inválido</p>
+  <p *ngIf="formGrupo.controls.telefone1.dirty && formGrupo.controls.telefone1.errors">Valor inválido</p>
 
   <ion-item>
     <ion-label stacked>Telefone 02</ion-label>
@@ -98,7 +98,7 @@
   <ion-item>
     <ion-label stacked>Estado*</ion-label>
     <!--Toda vez que mudar o estado selecionado, muda a lista de cidades com o (ionChange)="updateCidades()"-->
-    <ion-select formControlName="estadoId"(ionChange)="updateCidades()"> 
+    <ion-select formControlName="estado"(ionChange)="updateCidades()"> 
       <ion-option *ngFor="let estado of estados; first as f" [value]="estado.id" [selected]="f">
         {{estado.nome}}
       </ion-option>      

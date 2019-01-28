@@ -4,6 +4,12 @@ import { API_CONFIG } from "../../config/api.config";
 import { Observable } from "rxjs/Rx";
 import { EstadoDTO } from "../../models/estado.dto";
 
+/**
+ * @author Dowglas Maia
+ * Skype: live:dowglasmaia
+ * E-mail:dowglasmaia@live.com
+ * Linkedin: www.linkedin.com/in/dowglasmaia
+ * */
 
 @Injectable()
 export class EstadoService {

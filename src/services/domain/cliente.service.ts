@@ -26,4 +26,15 @@ export class ClienteService {
         return this.http.get(url, {responseType : 'blob'});
     }
 
+    /* Salvar Cliente*/
+    saveCli(obj: ClienteDTO) {
+           return this.http.post(
+               `${API_CONFIG.baseUrl}/clientes`,
+               obj,{
+                observe:'response',
+                responseType: 'text'
+               }
+           ) ;
+    }
+
 }

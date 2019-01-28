@@ -3,6 +3,7 @@ import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HTTP_INTERCEPTORS
 import { Observable } from 'rxjs/Rx'; // IMPORTANTE: IMPORT ATUALIZADO
 import { StorangeService } from '../services/storage.service';
 import { AlertController } from 'ionic-angular';
+import { FieldMessage } from '../models/fieldmessage';
 
 /**
  * @author Dowglas Maia
@@ -40,6 +41,10 @@ import { AlertController } from 'ionic-angular';
                      this.handle401();
                      break;
 
+                     case 422:
+                     this.handle422(errorObj);
+                     break;
+
                      default:
                      this.handleDefaultError(errorObj);
                 }
@@ -47,6 +52,31 @@ import { AlertController } from 'ionic-angular';
                 return Observable.throw(errorObj);
             }) as any;
         }
+
+        //Trantando error 422 - mostrando os eeros de validação da API RESTFul
+        handle422(errorObj): any {
+            let alert = this.arletCtrl.create({
+                title: 'Erro 422: Validação',
+                message: this.listErrors(errorObj.errors),
+                enableBackdropDismiss: false,
+                buttons: [
+                    {
+                        text: 'Ok'
+                    }
+                ]
+            });
+            alert.present();
+        }
+
+    
+     //lista de Erros
+     private listErrors(messages : FieldMessage[]) : string {
+        let s : string = '';
+        for (var i=0; i<messages.length; i++) {
+            s = s + '<p><strong>' + messages[i].fieldName + "</strong>: " + messages[i].message + '</p>';
+        }
+        return s;
+    }
 
          //Trantando Outos Erros
      handleDefaultError(errorObj): any {   
@@ -66,7 +96,7 @@ import { AlertController } from 'ionic-angular';
          //Trantando error 401
      handle401(): any {
          let alert = this.arletCtrl.create({
-            title: 'Erro 401: Falha de Autenticação!',
+            title: 'Falha de Autenticação!',
             message: 'Email ou Senha Incorretos',
             enableBackdropDismiss: false, 
             buttons: [

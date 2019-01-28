@@ -12,7 +12,7 @@ import { EstadoService } from '../../services/domain/estado.service';
     IonicPageModule.forChild(SignupPage),
   ],
 
-  /* Declarando os Servicos de Cidade e Estado, de forma que os mesmos so estaram instanciado no escopo
+  /* Declarando os Servicos de Cidade e Estado, de forma que os mesmos so estaram instanciados, no escopo
     do Signup 
   */
   providers: [
