@@ -43,10 +43,10 @@ export class ProdutosPage {
 
   /* Setando imagem ao produto caso a mesma exista */
   loadImageUrls() {
+    //percorrendo a lista de itens para atribuir a imagens respectiva ao mesmo
     for (var i=0; i<this.items.length; i++){
-      let item = this.items[i];
-
-      this.produtoService.getSmallImageFromBucket(item.id).subscribe(response => {
+       let item = this.items[i];
+       this.produtoService.getSmallImageFromBucket(item.id).subscribe(response => {
         item.imageUrl = `${API_CONFIG.bucketBaseUrl}/prod${item.id}-small.jpg`;
       },
       error => {})

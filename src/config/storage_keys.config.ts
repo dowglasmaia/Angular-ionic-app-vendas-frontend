@@ -3,5 +3,6 @@
  * Class para amarzenar o Usuario Logado, no localStorage
  */
 export const STORAGE_KEYS = {
-    locaUser: "localUser"
+    locaUser: "localUser",
+    cart: 'cartKeys'
 }
