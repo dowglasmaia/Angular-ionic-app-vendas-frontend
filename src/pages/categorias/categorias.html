@@ -13,11 +13,16 @@
 
 <!--Conteudo da Pagina-->
 <ion-content padding>
+    <ion-fab vertical="top" horizontal="end" right edge slot="fixed"> 
+      <button navPush="CartPage" ion-fab mini>
+        <ion-icon name="cart"></ion-icon>
+      </button> 
+    </ion-fab>
   <ion-list>
     
     <button ion-item *ngFor="let item of items" (click)="showProdutos(item.id)">
       <ion-thumbnail item-start>
-        <img src="{{bucketUrl}}/cat{{item.id}}.jpg">
+          <img src="{{bucketUrl}}/cat{{item.id}}.jpg">
       </ion-thumbnail>
       <h2>{{ item.nome }}</h2>
         
