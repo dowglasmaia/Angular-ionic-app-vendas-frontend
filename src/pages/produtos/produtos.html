@@ -9,14 +9,14 @@
 
 <ion-content padding>
   <ion-list>
-   <button ion-item *ngFor="let item of items" (click)="showDetail()">
+   <button ion-item *ngFor="let item of items" (click)="showDetail(item.id)">
      <ion-thumbnail item-start>
        <!-- se a imagem do produto existir a mesma e mostrada, se não mostra a imagem prod.jpg padrão-->
        <img [src]="item.imageUrl || 'assets/imgs/prod.jpg'">
      </ion-thumbnail>
 
      <h2>{{item.nome}}</h2>
-     <p>{{item.preco | currency}}</p>
+     <p>{{item.preco | currency:"BRL":tru:"1.2"}}</p>
 
    </button>
   </ion-list>
