@@ -11,6 +11,7 @@
   <ion-list>
    <button ion-item *ngFor="let item of items">
      <ion-thumbnail item-start>
+       <!-- se a imagem do produto existir a mesma e mostrada, se não mostra a imagem prod.jpg padrão-->
        <img [src]="item.imageUrl || 'assets/imgs/prod.jpg'">
      </ion-thumbnail>
 
