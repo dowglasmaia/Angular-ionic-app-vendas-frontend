@@ -4,13 +4,8 @@ import { CartItem } from '../../models/cart-item';
 import { ProdutoService } from '../../services/domain/produto.service';
 import { API_CONFIG } from '../../config/api.config';
 import { CartService } from '../../services/domain/cart.service';
+import { ProdutoDTO } from '../../models/produto.dto';
 
-/**
- * Generated class for the CartPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -50,6 +45,30 @@ export class CartPage {
       },
       error => {});
     }  
+  }
+
+  /**
+   * chamando os metodos de serviços da class
+   */
+  removeItem(produto: ProdutoDTO) {
+    this.items = this.cartService.removeProduto(produto).items;
+  }
+
+  incrementQuantity(produto: ProdutoDTO) {
+    this.items = this.cartService.incrementQuantity(produto).items;
+  }
+
+  derementQuantity(produto: ProdutoDTO) {
+    this.items = this.cartService.decrementQuantity(produto).items;
+  }
+
+  total(): number {
+    return this.cartService.total();
+  }
+  
+  //direciona o cliente para a pagina de categorias
+  continuarComprando() {
+    this.navCtrl.setRoot('CategoriasPage');
   }
 
 }

@@ -27,9 +27,35 @@
       
       <h2>{{item.produto.nome}}</h2>
       <p>{{item.produto.preco | currency:"BRL":tru:"1.2" }}</p>
-      <p>{{item.quantidade}}</p>
-    </ion-item>  
+       
+      <!-- Butão de Mais-->
+      <ion-icon class="nolinebreak" name="remove-circle" color="primary" (click)="derementQuantity(item.produto)"></ion-icon>  
+        
+      <p class="nolinebreak">{{item.quantidade}}</p>
+      
+      <!-- Butão de Menos-->  
+      <ion-icon class="nolinebreak" name="add-circle" color="primary" (click)="incrementQuantity(item.produto)"></ion-icon>      
+      
+      <!-- Remover o item do carrinho-->
+      <ion-icon name="trash" item-end color="danger" (click)="removeItem(item.produto)"></ion-icon> 
+
+    </ion-item> 
+    
+   <!--Total do Carrinho so e mostrado quando tem algum produto-->
+  <ion-item *ngIf="total() > 0"> 
+    <h1>Total</h1>
+    <h2 item-end>{{total()}}</h2>
+  </ion-item> 
+
+  <!--Mostrando menssagem quando o carrinho esteja vazio-->
+  <ion-item *ngIf="total() <= 0"> 
+     <h2>Seu Carrinho estar Vazio </h2>
+    </ion-item> 
+
+
 
   </ion-list>
+
+  <button ion-button block (click)="continuarComprando()" color="medium"> Continuar Comprando </button>
 
 </ion-content>
