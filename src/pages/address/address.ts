@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { EnderecoDTO } from '../../models/endereco.dto';
+import { StorangeService } from '../../services/storage.service';
+import { ClienteService } from '../../services/domain/cliente.service';
+
 
 /**
  * Generated class for the AddressPage page.
@@ -19,48 +22,33 @@ export class AddressPage {
   //Coleção de Endereços
   items: EnderecoDTO [];
 
+  
+
   constructor(
     public navCtrl: NavController, 
-    public navParams: NavParams) {
+    public navParams: NavParams,
+    public storage: StorangeService,
+    public clienteService: ClienteService) {
   }
 
   ionViewDidLoad() {
-    this.items = [
-     {
-       id: '1',
-       logradouro: 'Rua J',
-       numero: '254',
-       complemento: 'casa 5B',
-       bairro: 'centro',
-       cep: '65000-202',
-       cidade: {
-         id: '1',
-         nome: 'Cascavel',
-         estado: {
-           id: '1',
-           nome: 'Parana'
-         }
-       }
-     },
-
-     {
-      id: '2',
-      logradouro: 'Rua Central',
-      numero: '254',
-      complemento: 'casa 5B',
-      bairro: 'Pq Alvorada',
-      cep: '65000-302',
-      cidade: {
-        id: '1',
-        nome: 'Cascavel',
-        estado: {
-          id: '1',
-          nome: 'Parana'
-        }
-      }
-    },
-
-    ]
+   
+    // Buscar Endereços do Cliente Logado.
+    let localUser = this.storage.getLocalUser();
+    if (localUser && localUser.email){
+        this.clienteService.findByEmail(localUser.email)
+        .subscribe(response => {this.items = response['enderecos'];
+       
+        },
+        error => {
+          if (error.status == 403) {
+              this.navCtrl.setRoot('HomePage'); // direciona para pagina Home(login) caso ocora um erro 403
+          }
+        });
+    }
+    else {
+      this.navCtrl.setRoot('HomePage'); // direciona para pagina Home(login) caso ocora um erro 403
+    }
   }
 
 }

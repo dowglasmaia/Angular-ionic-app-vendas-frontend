@@ -16,8 +16,8 @@ export class ClienteService {
 
     /* import { Observable } from "rxjs/RX";  -- Usar este import para o Observable*/
     /* Buscar por Email */
-    findByEmail(email: string): Observable<ClienteDTO> {
-        return this.http.get<ClienteDTO>(`${API_CONFIG.baseUrl}/clientes/email?value=${email}`);
+    findByEmail(email: string) {
+        return this.http.get(`${API_CONFIG.baseUrl}/clientes/email?value=${email}`);
     }
 
     /* Buscar imagen do cliente no bucket da Amazom S3*/
