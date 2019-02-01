@@ -71,4 +71,9 @@ export class CartPage {
     this.navCtrl.setRoot('CategoriasPage');
   }
 
+  // finalizar o pedido
+  checkout() {
+    this.navCtrl.push('AddressPage');
+  }
+
 }
