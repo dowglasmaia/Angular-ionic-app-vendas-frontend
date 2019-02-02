@@ -1,0 +1,44 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Forma de Pagamento</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form [formGroup]="formGroup" (ngSubmit)= "nextPage(); $event.preventDefault()">
+ 
+    <!-- Tipo de Pagamento-->
+    <ion-list radio-group formControlName = "@type">  
+   <ion-list-header>
+    <ion-label>Tipo de Pagamento</ion-label>
+  </ion-list-header>
+
+  <ion-item>
+    <ion-label>Pagamento com Cartão</ion-label>
+    <ion-radio checked="true" value="pgtoComCartao"></ion-radio>
+  </ion-item>
+
+    <ion-item>
+      <ion-label>Pagamento com Boleto</ion-label>
+      <ion-radio value="pgtoComBoleto"></ion-radio>
+    </ion-item>  
+
+  </ion-list>
+
+<!-- So Mostra quando for pagamento por Cartão-->
+  <ion-item *ngIf="formGroup.value['@type'] == 'pgtoComCartao'">
+      <ion-label stacked>Parcelas no Cartão</ion-label>
+      <ion-select formControlName="numeroDeParcelas">
+       <ion-option *ngFor="let n of parcelas; first as f" [value]= "n" [selected] = "f">
+         {{n}}
+       </ion-option>
+      </ion-select> 
+  </ion-item>
+
+<button ion-button type="submit" [disabled]="formGroup.invalid">Próximo</button>  
+  </form>
+
+</ion-content>

@@ -64,7 +64,8 @@ export class AddressPage {
   nextPage(item: EnderecoDTO) {
     this.pedido.enderecoDeEntrega = {id: item.id};
 
-    console.log(this.pedido);
+    //camando a pagina de pagamento, com o pedido
+    this.navCtrl.push('PaymentPage', {pedido : this.pedido});
   }
 
 }
