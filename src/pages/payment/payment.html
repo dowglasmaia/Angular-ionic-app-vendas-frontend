@@ -8,6 +8,13 @@
 
 
 <ion-content padding>
+
+    <ion-fab vertical="top" horizontal="end" right edge slot="fixed"> 
+        <button navPush="CartPage" ion-fab mini>
+          <ion-icon name="cart"></ion-icon>
+        </button> 
+    </ion-fab>
+
   <form [formGroup]="formGroup" (ngSubmit)= "nextPage(); $event.preventDefault()">
  
     <!-- Tipo de Pagamento-->

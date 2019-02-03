@@ -9,6 +9,13 @@
 
 <ion-content padding>
 
+  <!--Butão Flutuante com icon do carrinho, que retorna para pagina de carrinho-->
+  <ion-fab vertical="top" horizontal="end" right edge slot="fixed"> 
+      <button navPush="CartPage" ion-fab mini>
+        <ion-icon name="cart"></ion-icon>
+      </button> 
+  </ion-fab>
+
   <ion-list>
     <ion-list-header>
       <ion-label>Selecione um endereço</ion-label>

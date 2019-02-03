@@ -20,6 +20,12 @@ export class ClienteService {
         return this.http.get(`${API_CONFIG.baseUrl}/clientes/email?value=${email}`);
     }
 
+     
+    /* Buscar por ID */
+    findById(id: string) {
+        return this.http.get(`${API_CONFIG.baseUrl}/clientes/${id}`);
+    }
+
     /* Buscar imagen do cliente no bucket da Amazom S3*/
     getImageFromBucket(id: string): Observable<any> {
         let url = `${API_CONFIG.bucketBaseUrl}/cp${id}.jpg`

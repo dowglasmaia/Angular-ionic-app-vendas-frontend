@@ -34,7 +34,9 @@ export class PaymentPage {
 
   nextPage() {
     this.pedido.pagamento = this.formGroup.value;  // Passando os dados q foram informados na pagina html
-    console.log(this.pedido);
+    
+    // chamando a pagina de confirmação de Pedido com setRoot, passando o objeto pedido
+    this.navCtrl.setRoot('OrderConfirmationPage', {pedido: this.pedido});
 
   }
 
