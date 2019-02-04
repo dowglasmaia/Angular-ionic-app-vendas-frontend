@@ -36,6 +36,8 @@ export class AuthService {
      * recebe o token como argumento 
      * */
     successfulLogin(authorizationValue : string) {
+
+        
         //removendo o nome Bearer e espaço do cabeçalho do token
         let tok = authorizationValue.substring(7);
 

@@ -37,15 +37,16 @@ creds : CredenciaisDTO = {
     
     } 
 
-    /* Definindo o Ciclo de Vinda do Usuario Logado - Mantendo o mesmo logado, se o toke ainda esiver valido */
+    /* Definindo o Ciclo de Vinda do Usuario Logado - Mantendo o mesmo logado, se o toke ainda esiver valido   */ 
     ionViewDidEnter() {
       this.auth.refreshToken().subscribe(response => {
-     this.auth.successfulLogin(response.headers.get('Authorization'));
+      this.auth.successfulLogin(response.headers.get('Authorization'));
       this.navCtrl.setRoot('ProfilePage');
     },
     error => {})
     
     }
+  
 
   /* Metodo de Login - com Usuario autenticando com token valido*/
   login(){
