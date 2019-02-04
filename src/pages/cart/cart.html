@@ -55,6 +55,6 @@
 
   <button ion-button block (click)="continuarComprando()" color="medium"> Continuar Comprando </button> 
 
-  <button ion-button block  color="secondary" (click)="checkout() "> Finalizar Pedido </button>
+  <button *ngIf="total() > 0" ion-button block  color="secondary" (click)="checkout() "> Finalizar Pedido </button>
 
 </ion-content>
