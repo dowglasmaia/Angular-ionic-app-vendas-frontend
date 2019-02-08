@@ -36,4 +36,8 @@
    </button>
   </ion-list>
 
+  <!-- Infinite Scroll - https://ionicframework.com/docs/v3/2.0.0/api/components/infinite-scroll/InfiniteScroll/-->
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>

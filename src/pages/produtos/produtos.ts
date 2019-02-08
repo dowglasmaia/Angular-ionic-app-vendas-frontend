@@ -18,7 +18,8 @@ import { API_CONFIG } from '../../config/api.config';
 })
 export class ProdutosPage {
 
-  items: ProdutoDTO[];
+  items: ProdutoDTO[] = [];
+  page: number = 0;
 
   constructor(
     public navCtrl: NavController, 
@@ -33,15 +34,26 @@ export class ProdutosPage {
 
   /* Carregando os Dados*/
   loadData() {
+
     /* pegando o parametro que é passado na na pagina de Categorias */
     let categoria_id = this.navParams.get('categoria_id');
 
        let loader = this.presentLoading(); // chamo o loader
+
     /* listando os produtos com base na sua categoria e abrindo a pagina  de produtos*/
-    this.produtoService.findByCategoria(categoria_id).subscribe(response => {
-      this.items = response['content'];
-          loader.dismiss();  // fechar a janela de loader quando tiver a respostas dos Dados
-      this.loadImageUrls();
+    this.produtoService.findByCategoria(categoria_id, this.page, 10)
+        .subscribe(response => {
+
+          let start = this.items.length; // tamanho da lista inicial
+                this.items = this.items.concat(response['content']);
+          let end = this.items.length - 1; // tamanha da lista apos o carregamento dos itens
+
+         loader.dismiss();  // fechar a janela de loader quando tiver a respostas dos Dados
+
+      console.log(this.page);
+      console.log(this.items);
+
+      this.loadImageUrls(start, end);
 
     },
     error => {
@@ -51,9 +63,9 @@ export class ProdutosPage {
   }
 
   /* Setando imagem ao produto caso a mesma exista */
-  loadImageUrls() {
+  loadImageUrls(start: number, end: number) {
     //percorrendo a lista de itens para atribuir a imagens respectiva ao mesmo
-    for (var i=0; i<this.items.length; i++){
+    for (var i=start; i<end; i++){
        let item = this.items[i];
        this.produtoService.getSmallImageFromBucket(item.id).subscribe(response => {
         item.imageUrl = `${API_CONFIG.bucketBaseUrl}/prod${item.id}-small.jpg`;
@@ -72,7 +84,7 @@ export class ProdutosPage {
   presentLoading() {
     let loading = this.loadingController.create({
       content: 'Aguarde...',
-      //duration: 3000
+      
     });
     loading.present();
     return loading;
@@ -80,10 +92,23 @@ export class ProdutosPage {
 
   /* https://ionicframework.com/docs/v3/2.0.0/api/components/refresher/Refresher/*/
   doRefresh(refresher) {
+    this.page = 0; //zerando a lista para fazer o refresh
+    this.items = [];
+
     this.loadData();
     setTimeout(() => {      
       refresher.complete();
     }, 1000);
   }
 
+
+  doInfinite(infiniteScroll) {
+    this.page ++;
+
+    this.loadData();
+
+    setTimeout(() => {      
+      infiniteScroll.complete();
+    }, 1000);
+  }
 }
