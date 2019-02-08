@@ -28,6 +28,11 @@ export class ProdutosPage {
   }
 
   ionViewDidLoad() {
+    this.loadData();
+  }
+
+  /* Carregando os Dados*/
+  loadData() {
     /* pegando o parametro que é passado na na pagina de Categorias */
     let categoria_id = this.navParams.get('categoria_id');
 
@@ -71,6 +76,14 @@ export class ProdutosPage {
     });
     loading.present();
     return loading;
+  }
+
+  /* https://ionicframework.com/docs/v3/2.0.0/api/components/refresher/Refresher/*/
+  doRefresh(refresher) {
+    this.loadData();
+    setTimeout(() => {      
+      refresher.complete();
+    }, 1000);
   }
 
 }
