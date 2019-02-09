@@ -4,13 +4,15 @@ import { Observable } from "rxjs/RX";
 import { ClienteDTO } from "../../models/cliente.dto";
 import { API_CONFIG } from "../../config/api.config";
 import { StorangeService } from "../storage.service";
+import { ImageUtilService } from "../image.util.service";
 
 @Injectable()
 export class ClienteService {
 
     constructor(
         public http: HttpClient,
-        public storange: StorangeService) {
+        public storange: StorangeService,
+        public imageUtilService: ImageUtilService) {
 
     }
 
@@ -40,7 +42,26 @@ export class ClienteService {
                 observe:'response',
                 responseType: 'text'
                }
-           ) ;
+           );
     }
+
+    /*Enviando Foto de Perfil para AWS */
+    uploadPicture(picture) {
+        let pictureBlob = this.imageUtilService.dataUriToBlob(picture); // Converte imagem base64 para Blob.
+
+        let formData: FormData = new FormData();
+        formData.set('file', pictureBlob, 'file.png');
+
+        return this.http.post(
+            `${API_CONFIG.baseUrl}/clientes/picture`,
+            formData,{
+             observe:'response',
+             responseType: 'text'
+            }
+        );
+
+
+    }
+
 
 }
